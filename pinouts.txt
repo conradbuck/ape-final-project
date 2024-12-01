@@ -1,0 +1,8 @@
+add notes about pin associations on teh stm32 for certain components
+
+GPS
+
+i2c screen
+
+
+LoRa antenna

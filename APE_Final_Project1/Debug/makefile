@@ -59,13 +59,13 @@ $(wildcard ../makefile.targets) \
 
 
 BUILD_ARTIFACT_NAME := APE_Final_Project1
-BUILD_ARTIFACT_EXTENSION := elf
+BUILD_ARTIFACT_EXTENSION := hex
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-APE_Final_Project1.elf \
+APE_Final_Project1.hex \
 
 MAP_FILES += \
 APE_Final_Project1.map \
@@ -76,16 +76,19 @@ default.size.stdout \
 OBJDUMP_LIST += \
 APE_Final_Project1.list \
 
+OBJCOPY_HEX += \
+APE_Final_Project1.hex \
+
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: APE_Final_Project1.elf secondary-outputs
+main-build: APE_Final_Project1.hex secondary-outputs
 
 # Tool invocations
-APE_Final_Project1.elf APE_Final_Project1.map: $(OBJS) $(USER_OBJS) C:\Users\Computer\Documents\APE\ape-final-proj\APE_Final_Project1\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "APE_Final_Project1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Computer\Documents\APE\ape-final-proj\APE_Final_Project1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="APE_Final_Project1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+APE_Final_Project1.hex APE_Final_Project1.map: $(OBJS) $(USER_OBJS) C:\Users\Computer\Documents\APE\ape-final-proj\APE_Final_Project1\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "APE_Final_Project1.hex" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Computer\Documents\APE\ape-final-proj\APE_Final_Project1\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="APE_Final_Project1.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -99,12 +102,17 @@ APE_Final_Project1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DE
 	@echo 'Finished building: $@'
 	@echo ' '
 
+APE_Final_Project1.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "APE_Final_Project1.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) APE_Final_Project1.elf APE_Final_Project1.list APE_Final_Project1.map default.size.stdout
+	-$(RM) APE_Final_Project1.hex APE_Final_Project1.list APE_Final_Project1.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

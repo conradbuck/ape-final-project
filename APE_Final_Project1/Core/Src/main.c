@@ -155,7 +155,7 @@ void SystemClock_Config(void)
   */
 static void MX_I2C1_SMBUS_Init(void)
 {
-  
+
   /* USER CODE BEGIN I2C1_Init 0 */
 
   /* USER CODE END I2C1_Init 0 */
@@ -202,10 +202,8 @@ static void MX_SPI1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN SPI1_Init 2 */
-  // Want to send messages in the form of strings
 
-
-    /* USER CODE END SPI1_Init 2 */
+  /* USER CODE END SPI1_Init 2 */
 
 }
 

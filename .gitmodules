@@ -1,0 +1,6 @@
+[submodule "APE_Final_Project1/libraries/Ape_Final_Project1/libraries/stm32-ssd1306"]
+	path = APE_Final_Project1/libraries/Ape_Final_Project1/libraries/stm32-ssd1306
+	url = https://github.com/afiskon/stm32-ssd1306.git
+[submodule "APE_Final_Project1/Ape_Final_Project1/src"]
+	path = APE_Final_Project1/Ape_Final_Project1/src
+	url = https://github.com/afiskon/stm32-ssd1306.git

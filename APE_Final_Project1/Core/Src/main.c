@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "libraries/Ape_Final_Project1/libraries/stm32-ssd1306/ssd1306/ssd1306.h"
+#include "ssd1306_tests.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +43,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 SPI_HandleTypeDef hspi1;
-
+I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
@@ -81,14 +82,17 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  //HAL_GPIO_WritePin(SPI_Led_GPIO_Port, SPI_Led_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(I2C_Led_GPIO_Port, I2C_Led_Pin, GPIO_PIN_RESET);
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  static void MX_GPIO_Init(void);
+  static void MX_SPI1_Init(void);
+  static void MX_I2C1_Init(void);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -96,6 +100,8 @@ int main(void)
   MX_I2C1_SMBUS_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_SPI1_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -105,10 +111,29 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    String GPSLoc = ReadGPS();  
+    OutPutToLCDScreen(GPSLoc);
+    
+    HAL_Delay(150);
 
+    String IMULoc = ReadIMU();
+    OutPutToLCDScreen(IMULoc);
+    wait();    
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+void OutPutToLCDScreen(String){
+
+}
+
+int ReadIMU(){
+
+}
+
+int ReadGPS(){
+
 }
 
 /**

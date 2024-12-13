@@ -47,8 +47,8 @@
 SPI_HandleTypeDef hspi1;
 //
 UART_HandleTypeDef huart1;
-GPIO_TypeDef *I2C_Led_GPIO_Port = GPIOA;
-GPIO_TypeDef *I2C_Led_Pin = GPIO_PIN_4;
+//GPIO_TypeDef *I2C_Led_GPIO_Port = GPIOA;
+//GPIO_TypeDef *I2C_Led_Pin = GPIO_PIN_4;
 I2C_HandleTypeDef hi2c1;
 
 /* USER CODE BEGIN PV */
@@ -91,7 +91,7 @@ int main(void)
   /* USER CODE BEGIN Init */
 
   //HAL_GPIO_WritePin(SPI_Led_GPIO_Port, SPI_Led_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(I2C_Led_GPIO_Port, I2C_Led_Pin, GPIO_PIN_RESET);
+//	HAL_GPIO_WritePin(I2C_Led_GPIO_Port, I2C_Led_Pin, GPIO_PIN_RESET);
   /* USER CODE END Init */
 
   /* Configure the system clock */
